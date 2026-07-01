@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="registrar.css">
 </head>
+
 <body>
+    <nav class="menu-principal">
+        <div class="menu-links">
+            <a href="usuario.html">Home</a>
+            <a href="usuario.html">registrar usuarios</a>
+            <a href="registrar.html#registro">Registro de productos</a>
+        </div>
+    </nav>
+
     <main id="contenedor">
         <form id="formulario">
             <h1 id="titulo"> Registro de productos</h1>
             <p> por favor digite sus datos correctamente </p>
-    <div id="nombreProductos"> 
-        <label for="productos">Digite nombre del producto </label>
-            <input type="text" name="productos" placeholder="producto" />
-           </div>
-        <div id="precioProductos"> 
-        <label for="precio">Digite  precio del producto</label>
-            <input type="text" name="precio" placeholder="precio" />
-           </div>
-       <div id="stockProductos"> 
-                <label for="stock">Digite el stock del producto </label>
-                <input type="text" name="stock" placeholder="stock" />
+
+            <div id="nombreProductos">
+                <label for="productos">Digite nombre del producto </label>
+                <input type="text" id="productos" name="productos" placeholder="producto"></input>
             </div>
-            <button id="login"> registrar </button>
+
+            <div id="precioProductos">
+                <label for="precio">Digite precio del producto</label>
+                <input type="number" id="precio" name="precio" placeholder="precio"></input>
+            </div>
+
+            <div id="stockProductos">
+                <label for="stock">Digite el stock del producto </label>
+                <input type="number" id="stock" name="stock" placeholder="stock"></input>
+            </div>
+
+            <button type="submit" id="login"> registrar </button>
+        </form>
+    </main>
+
+    <script src="productos.js"></script>
 </body>
+
 </html>
