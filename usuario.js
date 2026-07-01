@@ -5,18 +5,18 @@ formulario.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(formulario);
   const user = {
-    "username": data.get(username),
-    "name": data.get("name"),
+    "username": data.get("username"),
+    "name": data.get("nombre"),
     "password": data.get("password")
   }
   const res = httpClient(user).then(data => data.json());
-  res.then(data => console.log).catch(err => console.error)
+  res.then(data => console.log(data)).catch(err => console.error(err))
 });
 
 const httpClient = (user) => {
   fetch(`${URL_BASE}/user.json`, {
     method: "POST",
-    header: {
+    headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(user)
