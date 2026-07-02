@@ -31,7 +31,7 @@ function mostrarProductos(listaFiltrar = productos) {
         </tr>
     `;
   });
-  listaProductos.innerHTML = ListaInventario.join('');
+  listaProductos.innerHTML = ListaInventario
 }
 
 formulario.addEventListener("submit", (event) => {
