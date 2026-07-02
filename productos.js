@@ -34,4 +34,4 @@ inputBuscar.addEventListener('input', function() {
     });
 
     mostrarProductos(productosFiltrados);
-});
+}); 

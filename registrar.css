@@ -129,26 +129,26 @@ td {
     color: #4a4a4a;
 }
 
-.btn-editar, .btn-eliminar {
+.editar, .eliminar {
     padding: 5px 12px;
     font-size: 0.9rem;
     border-radius: 4px;
     margin-right: 5px;
 }
 
-.btn-editar {
+.editar {
     background-color: #ffffff;
     color: #363537;
     border: 1px solid #bdc3c7;
 }
 
-.btn-eliminar {
+.eliminar {
     background-color: #ffffff;
     color: #363537;
     border: 1px solid #bdc3c7;
 }
 
-.btn-editar:hover, .btn-eliminar:hover {
+.editar:hover,.eliminar:hover {
     background-color: #e2d9fa;
     color: rgb(110, 14, 165);
 }
