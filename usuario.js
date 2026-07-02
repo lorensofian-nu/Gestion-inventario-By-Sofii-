@@ -5,8 +5,9 @@ formulario.addEventListener("submit", (event) => {
   event.preventDefault();
   const data = new FormData(formulario);
   const user = {
-    "username": data.get("username"),
-    "name": data.get("nombre"),
+    "usuario": data.get("nombre"),
+    "identificacion": data.get("identificacion"),
+    "cargo": data.get("cargo"),
     "password": data.get("password")
   }
   const res = httpClient(user).then(data => data.json());
