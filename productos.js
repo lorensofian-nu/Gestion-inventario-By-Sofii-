@@ -24,3 +24,14 @@ formulario.addEventListener("submit", (event) => {
   res.then(data => console.log(data)).catch(err => console.error(err))
 });
 
+
+inputBuscar.addEventListener('input', function() {
+    const texto = inputBuscar.value.toLowerCase().trim();
+
+    const productosFiltrados = productos.filter(producto => {
+        return producto.nombre.toLowerCase().includes(texto) || 
+               producto.codigo.toLowerCase().includes(texto);
+    });
+
+    mostrarProductos(productosFiltrados);
+});

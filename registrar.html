@@ -1,49 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventario By Sofiii</title>
     <link rel="stylesheet" href="registrar.css">
 </head>
 
 <body>
+
     <nav class="menu-principal">
         <div class="menu-links">
             <a href="usuario.html">Home</a>
-            <a href="usuario.html">registrar usuarios</a>
+            <a href="usuario.html">Registrar usuarios</a>
             <a href="registrar.html#registro">Registro de productos</a>
         </div>
     </nav>
 
     <main id="contenedor">
+        <h1 id="titulo">Inventario</h1>
+
         <form id="formulario">
-            <h1 id="titulo"> Registro de productos</h1>
-            <p> por favor digite sus datos correctamente </p>
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="text" id="codigo" placeholder="Codigo" required>
+            <input type="text" id="proveedor" placeholder="Proveedor" required>
+            <input type="number" id="stock" placeholder="Stock" required>
 
-            <div id="nombreProductos">
-                <label for="">Digite nombre del producto </label>
-                <input type="text" id="nombre" name="nombre" placeholder="nombre producto"></input>
-            </div>
+            <select id="tipo">
+                <option value="materia-prima">Materia Prima</option>
+                <option value="terminado">Producto Terminado</option>
+            </select>
 
-            <div id="productosCodigo">
-                <label for="productosCodigo">Digite codigo del producto </label>
-                <input type="text" id="codigo" name="codigo" placeholder="producto"></input>
-            </div>
-
-            <div id="precioProductos">
-                <label for="proveedor">Digite proveedor del producto</label>
-                <input type="text" id="proveedor" name="proveedor" placeholder="proveedor"></input>
-            </div>
-
-            <div id="stockProductos">
-                <label for="stock">Digite el stock del producto </label>
-                <input type="number" id="stock" name="stock" placeholder="stock"></input>
-            </div>
-
-            <button type="submit" id="login"> registrar </button>
+            <button type="submit" id="guardarProducto">Guardar</button>
         </form>
+
+        <div class="buscarProducto">
+            <input type="text" id="buscar" placeholder=" Buscar productosss">
+        </div>
+
+        <div class="tablaProductos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Proveedor</th>
+                        <th>Tipo</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-productos">
+                    <tr>
+                        <td>oreo</td>
+                        <td>2344</td>
+                        <td>by sofii</td>
+                        <td>Materia Prima</td>
+                        <td>25</td>
+                        <td>
+                            <button class="editar">Editar</button>
+                            <button class="eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <script src="productos.js"></script>

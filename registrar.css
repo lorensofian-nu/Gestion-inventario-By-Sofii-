@@ -41,38 +41,45 @@ body {
    margin: 40px auto;
    display: flex;
    flex-direction: column;
-   justify-content: center;
-   text-align: center;
-   border-radius: 10px;
-   width: 100%;
-   max-width: 500px;
+   gap: 20px;
+   width: 90%;
+   max-width: 1000px;
    padding: 20px;
-
-
-}
-
-img {
-   width: 100px;
-   margin-bottom: 10px;
 }
 
 h1 {
-   text-align: center;
+   text-align: left;
    font-size: 2.2rem;
    color: #3437db;
-   margin-bottom: 10px;
+   margin-bottom: 5px;
 }
 
-input {
-   width: 60%;
+#formulario {
+   background-color: #c8b6fa;
+   border-radius: 15px;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   gap: 10px;
+   align-items: center;
+   justify-content: space-between;
+   padding: 15px;
+   border: 3px solid #5053fa;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+#formulario input, #formulario select {
+   flex: 1;
+   min-width: 120px;
    padding: 10px;
-   margin-bottom: 20px;
+   margin-bottom: 0;
    border: 1px solid #bdc3c7;
    border-radius: 5px;
    font-size: 1rem;
+   background-color: #ffffff;
 }
 
-button {
+#guardarProducto {
    background-color: #3437db;
    color: #fff;
    border: none;
@@ -82,38 +89,66 @@ button {
    cursor: pointer;
 }
 
-button:hover {
+#guardarProducto:hover {
    background-color: #6c29b9;
 }
 
-p {
-   font-size: 0.95rem;
-   color: #7b7589;
-   text-align: center;
-   margin-bottom: 30px;
+.tablaProductos input {
+    width: 300px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #bdc3c7;
+    margin-bottom: 10px;
 }
 
-#olvidar {
-   color: #3934db;
-   cursor: pointer;
+.tablaProductos {
+    background-color: #c8b6fa;
+      border: 3px solid #5053fa;
+      border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-#inicioSesion {
-   margin-bottom: 20px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
 }
 
-#formulario {
-   background-color: #c8b6fa;
-   border-radius: 30px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   padding: 20px;
-   border: 3px solid #5053fa;
-   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+th, td {
+    padding: 12px 15px;
+    font-size: 1rem;
 }
 
-label {
-   color: #363537;
+th {
+    color: #363537;
+    font-weight: bold;
+}
 
+td {
+    color: #4a4a4a;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.btn-editar {
+    background-color: #ffffff;
+    color: #363537;
+    border: 1px solid #bdc3c7;
+}
+
+.btn-eliminar {
+    background-color: #ffffff;
+    color: #363537;
+    border: 1px solid #bdc3c7;
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+    background-color: #e2d9fa;
+    color: rgb(110, 14, 165);
 }
