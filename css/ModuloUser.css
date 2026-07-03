@@ -1,0 +1,72 @@
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: url(/images/soda.jpeg);
+    background-position: 50%;
+}
+
+.modulo-usuario {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color:#c8b6fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+    margin-top: 0;
+    color: #000000;
+}
+
+.busqueda {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#buscar {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.botonInicio:hover {
+    background-color: #738de3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 9px;
+}
+a.botonInicio {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f1ee56;
+    color: #101010;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    
+}
+
+th {
+    background-color: #eee;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}

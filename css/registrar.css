@@ -2,11 +2,9 @@ body {
    box-sizing: border-box;
    margin: 0;
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-   background-color: #ffffff;
    background-image: url(images/soda.jpeg);
    background-position: 50%;
 }
-
 .menu-principal {
     position: sticky;
     top: 0;
@@ -15,7 +13,7 @@ body {
     align-items: center;
     padding: 9px 5%;
     background-color: #f0fc98ed;
-    z-index: 10;
+  
 }
 
 .menu-links {
