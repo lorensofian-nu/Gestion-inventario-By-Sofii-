@@ -36,7 +36,7 @@ BotonIngresar.addEventListener("click", (e) => {
         console.log("Usuario registrado galácticamente: ", data);
         alert("ya estas registrado,power ranger");
         setTimeout(() => {
-            window.location.href = "login.html";
+            window.location.href = "../pages/login.html";
         }, 1000);
     })
     .catch(err => {

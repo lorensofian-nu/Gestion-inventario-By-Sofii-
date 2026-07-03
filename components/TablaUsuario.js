@@ -10,7 +10,7 @@ class BusquedaUsuarios extends HTMLElement {
                         type="text"
                         id="buscar"
                         placeholder="Buscar usuario">
-                        <a class="botonInicio" href="usuario.html" > Añadir nuevo Usuario</a>
+                        <a class="btnInicio" href="usuario.html" > Añadir nuevo Usuario</a>
                 </div>
 
             <div class="datos-usuarios">
@@ -32,5 +32,5 @@ class BusquedaUsuarios extends HTMLElement {
         `;
     }
 }
- 
+
 customElements.define("busqueda-usuarios", BusquedaUsuarios);
