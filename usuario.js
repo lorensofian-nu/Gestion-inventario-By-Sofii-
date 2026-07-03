@@ -1,7 +1,7 @@
 const URL_BASE = "https://stock-flow-e92c1-default-rtdb.firebaseio.com"
 const formulario = document.getElementById("formulario");
 
-formulario.addEventListener("submit", (event) => {
+formulario.addEventListener("submit", async (event) => {
   event.preventDefault();
   const data = new FormData(formulario);
   const user = {
@@ -10,8 +10,8 @@ formulario.addEventListener("submit", (event) => {
     "cargo": data.get("cargo"),
     "password": data.get("password")
   }
-  const res = httpClient(user).then(data => data.json());
-  res.then(data => console.log(data)).catch(err => console.error(err))
+  await httpClient(`${URL_BASE}/product.json`, user, "POST");
+  window.location.href = "login.html";
 });
 
 const httpClient = (user) => {
@@ -23,6 +23,7 @@ const httpClient = (user) => {
     body: JSON.stringify(user)
   });
 }
+
 
 
 

@@ -5,13 +5,13 @@ const inputBuscar = document.getElementById("buscar");
 
 let productos = [];
 
-const httpClient = (product) => {
-  return fetch(`${URL_BASE}/product.json`, {
-    method: "POST",
+const httpClient = (url, payload, method) => {
+  return fetch(url, {
+    method: method,
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(product)
+    body: JSON.stringify(payload)
   });
 }
 
