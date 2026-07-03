@@ -5,8 +5,12 @@ const inputBuscar = document.getElementById("buscar");
 
 let productos = [];
 
-const httpClient = (url, payload, method) => {
-  return fetch(url, {
+document.addEventListener("DOMContentLoaded", async () => {
+  await mostrarProductos();
+});
+
+async function requestHTTP (url, payload, method) {
+  return await fetch(url, {
     method: method,
     headers: {
       "Content-Type": "application/json"
@@ -15,9 +19,16 @@ const httpClient = (url, payload, method) => {
   });
 }
 
-function mostrarProductos(listaFiltrar = productos) {
-  const ListaInventario = listaFiltrar.map((producto) => {
-    return `
+async function mostrarProductos() {
+  const lista = await fetch(`${URL_BASE}/product.json`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  }).then((res) => res.json());
+  let output = "";
+  Object.values(lista).forEach((producto) => {
+    output += `
         <tr>
             <td>${producto.nombre}</td>
             <td>${producto.codigo}</td>
@@ -31,10 +42,10 @@ function mostrarProductos(listaFiltrar = productos) {
         </tr>
     `;
   });
-  listaProductos.innerHTML = ListaInventario
+  listaProductos.innerHTML = output;
 }
 
-formulario.addEventListener("submit", (event) => {
+formulario.addEventListener("submit", async (event) => {
   event.preventDefault();
   
   const data = new FormData(formulario);
@@ -47,15 +58,7 @@ formulario.addEventListener("submit", (event) => {
     "tipo": data.get("tipo")
   };
 
-  httpClient(product)
-    .then(response => response.json())
-    .then(data => {
-      console.log("producto guardado galacticoo", data);
-      productos.push(product);
-      mostrarProductos();
-      formulario.reset();
-    })
-    .catch(err => console.error(err));
+  await requestHTTP(`${URL_BASE}/product.json`, product, "POST")
 });
 
 inputBuscar.addEventListener('input', () => {
