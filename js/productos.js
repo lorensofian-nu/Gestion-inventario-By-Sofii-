@@ -27,7 +27,7 @@ async function mostrarProductos() {
     },
   }).then((res) => res.json());
   
-  renderList(Object.values(lista));
+  renderList(lista);
 }
 
 formulario.addEventListener("submit", async (event) => {
