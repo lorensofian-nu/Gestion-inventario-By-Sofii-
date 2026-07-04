@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await mostrarProductos();
 });
 
-async function requestHTTP (url, payload, method) {
+async function requestHTTP(url, payload, method) {
   return await fetch(url, {
     method: method,
     headers: {
@@ -26,8 +26,45 @@ async function mostrarProductos() {
       "Content-Type": "application/json"
     },
   }).then((res) => res.json());
+  
+  renderList(Object.values(lista));
+}
+
+formulario.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const data = new FormData(formulario);
+
+  const product = {
+    "nombre": data.get("nombre"),
+    "codigo": data.get("codigo"),
+    "proveedor": data.get("proveedor"),
+    "stock": parseInt(data.get("stock")),
+    "tipo": data.get("tipo")
+  };
+
+  await requestHTTP(`${URL_BASE}/product.json`, product, "POST")
+});
+
+inputBuscar.addEventListener("input", async () => {
+  const lista = await fetch(`${URL_BASE}/product.json`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  }).then((res) => res.json());
+
+  const arrayList = Object.values(lista);
+  const newArray = arrayList.filter((producto)=> producto.nombre.startsWith(inputBuscar.value));
+
+  renderList(newArray);
+})
+
+function renderList(lista) {
+  listaProductos.innerHTML = "";
+
   let output = "";
-  Object.values(lista).forEach((producto) => {
+  lista.forEach((producto) => {
     output += `
         <tr>
             <td>${producto.nombre}</td>
@@ -44,30 +81,3 @@ async function mostrarProductos() {
   });
   listaProductos.innerHTML = output;
 }
-
-formulario.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  
-  const data = new FormData(formulario);
-  
-  const product = {
-    "nombre": data.get("nombre"),
-    "codigo": data.get("codigo"),
-    "proveedor": data.get("proveedor"),
-    "stock": parseInt(data.get("stock")),
-    "tipo": data.get("tipo")
-  };
-
-  await requestHTTP(`${URL_BASE}/product.json`, product, "POST")
-});
-
-inputBuscar.addEventListener('input', () => {
-    const texto = inputBuscar.value.toLowerCase().trim();
-
-    const productosFiltrados = productos.filter(producto => {
-        return producto.nombre.toLowerCase().includes(texto) || 
-               producto.codigo.toLowerCase().includes(texto);
-    });
-
-    mostrarProductos(productosFiltrados);
-});
