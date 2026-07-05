@@ -4,8 +4,8 @@ const BotonIngresar = document.getElementById("registrar");
 let items = [];
 
 
-BotonIngresar.addEventListener("click", (e) => {
-    e.preventDefault();
+BotonIngresar.addEventListener("click", (event) => {
+    event.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const identificacion = document.getElementById("identificacion").value.trim();

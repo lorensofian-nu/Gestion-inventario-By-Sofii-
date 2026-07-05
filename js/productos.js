@@ -19,13 +19,22 @@ async function requestHTTP(url, payload, method) {
   });
 }
 async function EliminarProductos(id) {
-  const Eliminar= await fetch(`${URL_BASE}/product/${id}.json`, {
-    method: "DELETE", 
+  const Eliminar = await fetch(`${URL_BASE}/product/${id}.json`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json"
     }
   });
 
+}
+async function EditarProducto(id, product) {
+  const response = await fetch(`${URL_BASE}/product/${id}.json`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(product)
+  });
 }
 async function mostrarProductos() {
   const lista = await fetch(`${URL_BASE}/product.json`, {
@@ -34,7 +43,7 @@ async function mostrarProductos() {
       "Content-Type": "application/json"
     },
   }).then((res) => res.json());
-  
+
   const arrayProductos = Object.keys(lista).map(id => ({ id, ...lista[id] }));
   renderList(arrayProductos);
 }
@@ -67,8 +76,8 @@ inputBuscar.addEventListener("input", async () => {
   }).then((res) => res.json());
   if (!lista) return renderList([]);
 
-const arrayList = Object.keys(lista).map(id => ({ id, ...lista[id] }));
-  const newArray = arrayList.filter((producto)=> producto.nombre.startsWith(inputBuscar.value));
+  const arrayList = Object.keys(lista).map(id => ({ id, ...lista[id] }));
+  const newArray = arrayList.filter((producto) => producto.nombre.startsWith(inputBuscar.value));
 
   renderList(newArray);
 })
@@ -94,17 +103,25 @@ function renderList(lista) {
   });
   listaProductos.innerHTML = output;
 
-const EliminarProducto = document.getElementsByClassName("eliminar");
+  const EliminarProducto = document.getElementsByClassName("eliminar");
   const EditarProducto = document.getElementsByClassName("editar");
 
   for (const boton of EliminarProducto) {
     boton.addEventListener("click", async (event) => {
-        const id = boton.getAttribute("data-id"); 
-        await EliminarProductos(id); 
-      
+      alert("Eliminar producto galactico");
+      const id = boton.getAttribute("data-id");
+      await EliminarProductos(id);
+      mostrarProductos();
+
     });
+    for (const boton of EditarProducto) {
+      boton.addEventListener("click", async (event) => {
+        alert("Editar producto galactico");
+      });
+    }
   }
 }
+
 
 
 

@@ -1,4 +1,3 @@
-
 const URL_BASE = "https://stock-flow-e92c1-default-rtdb.firebaseio.com";
 
 const botonInicio = document.getElementById("IniciarSesion");
