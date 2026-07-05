@@ -18,8 +18,14 @@ async function requestHTTP(url, payload, method) {
     body: JSON.stringify(payload)
   });
 }
-async function deleteProduct(id) {
-  await requestHTTP(`${URL_BASE}/product/${id}.json`, null, "DELETE");
+async function EliminarProductos(id) {
+  const Eliminar= await fetch(`${URL_BASE}/product/${id}.json`, {
+    method: "DELETE", 
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
 }
 async function mostrarProductos() {
   const lista = await fetch(`${URL_BASE}/product.json`, {
@@ -29,8 +35,10 @@ async function mostrarProductos() {
     },
   }).then((res) => res.json());
   
-  renderList(Object.values(lista));
+  const arrayProductos = Object.keys(lista).map(id => ({ id, ...lista[id] }));
+  renderList(arrayProductos);
 }
+
 
 formulario.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -57,8 +65,9 @@ inputBuscar.addEventListener("input", async () => {
       "Content-Type": "application/json"
     },
   }).then((res) => res.json());
+  if (!lista) return renderList([]);
 
-const arrayList = Object.values(lista).map(id => ({ id, ...lista[id] }));
+const arrayList = Object.keys(lista).map(id => ({ id, ...lista[id] }));
   const newArray = arrayList.filter((producto)=> producto.nombre.startsWith(inputBuscar.value));
 
   renderList(newArray);
@@ -77,8 +86,8 @@ function renderList(lista) {
             <td>${producto.tipo === 'materia-prima' ? 'Materia Prima' : 'Producto Terminado'}</td>
             <td>${producto.stock}</td>
             <td>
-                <button class="editar" data-codigo=${producto.codigo}>Editar</button>
-                <button class="eliminar" data-codigo=${producto.codigo}>Eliminar</button>
+                <button class="editar" data-id=${producto.id}>Editar</button>
+                <button class="eliminar" data-id=${producto.id}>Eliminar</button>
             </td>
         </tr>
     `;
@@ -90,9 +99,12 @@ const EliminarProducto = document.getElementsByClassName("eliminar");
 
   for (const boton of EliminarProducto) {
     boton.addEventListener("click", async (event) => {
-        const codigo = boton.getAttribute("data-codigo"); 
-        await deleteProduct(codigo); 
+        const id = boton.getAttribute("data-id"); 
+        await EliminarProductos(id); 
       
     });
   }
 }
+
+
+
