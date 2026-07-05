@@ -28,11 +28,11 @@
             <input type="text" id="proveedor" name="proveedor" placeholder="Proveedor">
             <input type="number" id="stock" name="stock" placeholder="Stock">
 
-            <select id="tipo">
+            <select id="tipo" name="tipo">
                 <option value="materia-prima">Materia Prima</option>
-                <option value="terminado">Producto Terminado</option>
+                <option value="Produccion">Produccion</option>
             </select>
-
+            <div id="materias-disponibles"></div>
             <button type="submit" id="guardarProducto">Guardar</button>
         </form>
 
@@ -60,6 +60,8 @@
     </main>
 
     <script src="../js/productos.js"></script>
+    <script src="../js/produccion.js"></script>
+
 </body>
 
 </html>

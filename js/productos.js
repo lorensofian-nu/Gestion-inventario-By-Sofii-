@@ -7,6 +7,7 @@ let productos = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   await mostrarProductos();
+  
 });
 
 async function requestHTTP(url, payload, method) {
@@ -45,6 +46,7 @@ async function mostrarProductos() {
   }).then((res) => res.json());
 
   const arrayProductos = Object.keys(lista).map(id => ({ id, ...lista[id] }));
+  productos = arrayProductos;
   renderList(arrayProductos);
 }
 
@@ -58,7 +60,7 @@ formulario.addEventListener("submit", async (event) => {
     "nombre": data.get("nombre"),
     "codigo": data.get("codigo"),
     "proveedor": data.get("proveedor"),
-    "stock": parseInt(data.get("stock")),
+    "stock": data.get("stock"),
     "tipo": data.get("tipo")
   };
 
@@ -92,7 +94,7 @@ function renderList(lista) {
             <td>${producto.nombre}</td>
             <td>${producto.codigo}</td>
             <td>${producto.proveedor}</td>
-            <td>${producto.tipo === 'materia-prima' ? 'Materia Prima' : 'Producto Terminado'}</td>
+            <td>${producto.tipo === 'materia-prima' ? 'Materia Prima' : 'Produccion'}</td>
             <td>${producto.stock}</td>
             <td>
                 <button class="editar" data-id=${producto.id}>Editar</button>

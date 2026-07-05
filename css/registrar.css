@@ -5,6 +5,19 @@ body {
    background-image: url(../images/soda.jpeg);
    background-position: 50%;
 }
+#materias-disponibles {
+    display: block;
+    width: 100%;
+    margin-top: 15px; 
+    clear: both;
+}
+
+#materias-disponibles label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
 .menu-principal {
     position: sticky;
     top: 0;
