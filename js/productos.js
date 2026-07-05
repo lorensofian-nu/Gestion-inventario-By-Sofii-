@@ -18,7 +18,9 @@ async function requestHTTP(url, payload, method) {
     body: JSON.stringify(payload)
   });
 }
-
+async function deleteProduct(id) {
+  await requestHTTP(`${URL_BASE}/product/${id}.json`, null, "DELETE");
+}
 async function mostrarProductos() {
   const lista = await fetch(`${URL_BASE}/product.json`, {
     method: "GET",
@@ -27,7 +29,7 @@ async function mostrarProductos() {
     },
   }).then((res) => res.json());
   
-  renderList(lista);
+  renderList(Object.values(lista));
 }
 
 formulario.addEventListener("submit", async (event) => {
@@ -44,6 +46,8 @@ formulario.addEventListener("submit", async (event) => {
   };
 
   await requestHTTP(`${URL_BASE}/product.json`, product, "POST")
+  formulario.reset();
+  await mostrarProductos();
 });
 
 inputBuscar.addEventListener("input", async () => {
@@ -54,7 +58,7 @@ inputBuscar.addEventListener("input", async () => {
     },
   }).then((res) => res.json());
 
-  const arrayList = Object.values(lista);
+const arrayList = Object.values(lista).map(id => ({ id, ...lista[id] }));
   const newArray = arrayList.filter((producto)=> producto.nombre.startsWith(inputBuscar.value));
 
   renderList(newArray);
@@ -73,11 +77,22 @@ function renderList(lista) {
             <td>${producto.tipo === 'materia-prima' ? 'Materia Prima' : 'Producto Terminado'}</td>
             <td>${producto.stock}</td>
             <td>
-                <button class="editar">Editar</button>
-                <button class="eliminar">Eliminar</button>
+                <button class="editar" data-codigo=${producto.codigo}>Editar</button>
+                <button class="eliminar" data-codigo=${producto.codigo}>Eliminar</button>
             </td>
         </tr>
     `;
   });
   listaProductos.innerHTML = output;
+
+const EliminarProducto = document.getElementsByClassName("eliminar");
+  const EditarProducto = document.getElementsByClassName("editar");
+
+  for (const boton of EliminarProducto) {
+    boton.addEventListener("click", async (event) => {
+        const codigo = boton.getAttribute("data-codigo"); 
+        await deleteProduct(codigo); 
+      
+    });
+  }
 }
