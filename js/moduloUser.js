@@ -7,9 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function mostrarUsuarios() {
   const lista = await fetch(`${URL_BASE}/usuarios.json`, {
     method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" }
   }).then((res) => res.json());
 
   if (!lista) return renderList([]);
@@ -18,18 +16,21 @@ async function mostrarUsuarios() {
   renderList(arrayUsuarios);
 }
 
+async function EliminarUsuario(id) {
+  await fetch(`${URL_BASE}/usuarios/${id}.json`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  });
+}
+
 function renderList(lista) {
-  const componente = document.querySelector("busqueda-usuarios");
-  if (!componente) return;
-  
-  const listaUsuarios = componente.querySelector("#listaUsuarios");
+  const listaUsuarios = document.getElementById("listaUsuarios");
   if (!listaUsuarios) return;
 
   listaUsuarios.innerHTML = "";
 
-  let output = "";
   lista.forEach((usuario) => {
-    output += `
+    listaUsuarios.innerHTML += `
         <tr>
             <td>${usuario.nombre}</td>
             <td>${usuario.cargo || 'No asignado'}</td>
@@ -40,5 +41,13 @@ function renderList(lista) {
         </tr>
     `;
   });
-  listaUsuarios.innerHTML = output;
-} 
+
+  const botonesEliminar = document.getElementsByClassName("eliminar");
+  for (const boton of botonesEliminar) {
+    boton.addEventListener("click", async () => {
+      const id = boton.getAttribute("data-id");
+      await EliminarUsuario(id);
+      await mostrarUsuarios();
+    });
+  }
+}
