@@ -46,6 +46,7 @@ function renderList(lista) {
   for (const boton of botonesEliminar) {
     boton.addEventListener("click", async () => {
       const id = boton.getAttribute("data-id");
+      alert(`Usuario eliminadoooo power ranger.`);
       await EliminarUsuario(id);
       await mostrarUsuarios();
     });
