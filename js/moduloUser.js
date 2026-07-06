@@ -22,6 +22,13 @@ async function EliminarUsuario(id) {
     headers: { "Content-Type": "application/json" }
   });
 }
+async function EditarUsuario(id) {
+  await fetch(`${URL_BASE}/usuarios/${id}.json`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" }
+  });
+}
+
 
 function renderList(lista) {
   const listaUsuarios = document.getElementById("listaUsuarios");
@@ -37,11 +44,11 @@ function renderList(lista) {
             <td>${usuario.identificacion}</td>
             <td>
                 <button class="eliminar" data-id="${usuario.id}">Eliminar</button>
+                <button class="editar" data-id="${usuario.id}">Editar</button>
             </td>
         </tr>
     `;
   });
-
   const botonesEliminar = document.getElementsByClassName("eliminar");
   for (const boton of botonesEliminar) {
     boton.addEventListener("click", async () => {
@@ -51,4 +58,13 @@ function renderList(lista) {
       await mostrarUsuarios();
     });
   }
+}
+const botonesEditar= document.getElementsByClassName("editar");
+for (const boton of botonesEditar) {
+  boton.addEventListener("click",async()=>  {
+  const id= boton.getAttribute("data-id");
+  alert("usuario editado power ranger")
+  await mostrarUsuarios();
+
+  });
 }

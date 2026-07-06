@@ -5,6 +5,35 @@ body {
     background-image: url(../images/soda.jpeg);
     background-position: 50%;
 }
+.menu-principal {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 9px 5%;
+    background-color: #4a9feec0;
+    z-index: 10;
+}
+
+.menu-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.menu-links a {
+    color: rgb(110, 14, 165);
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.menu-links a:hover {
+    background-color: rgb(180, 128, 243);
+    color: #ffffff;
+}
 
 .modulo-usuario {
     max-width: 900px;
