@@ -5,7 +5,7 @@ let items = [];
 
 
 BotonIngresar.addEventListener("click", (event) => {
-    event.preventDefault();
+    e.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const identificacion = document.getElementById("identificacion").value.trim();
