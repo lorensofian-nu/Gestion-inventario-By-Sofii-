@@ -1,11 +1,14 @@
 body {
     box-sizing: border-box;
     margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url(../images/flip.jpg);
+    background-image: url(../images/bob.png);
     background-position: 50%;
- }
- 
+}
 .menu-principal {
     position: sticky;
     top: 0;
@@ -55,7 +58,7 @@ body {
  h1 {
      text-align: center;
      font-size: 2.2rem;
-     color: #3437db;
+     color: #db6934;
      margin-bottom: 10px;
  }
  
@@ -69,7 +72,7 @@ body {
      
  }
  button {
-     background-color: #3437db;
+     background-color: #db5b34;
      color: #fff;
      border: none;
      padding: 10px 20px;
@@ -86,30 +89,31 @@ body {
      text-align: center;
      margin-bottom: 30px;
  }
- #olvidar {
-     color: #3934db;
-     cursor: pointer;
- } 
+
  .inicioSesion {
     display: flex;
     width: 80%;
      margin-bottom: 20px;
      flex-direction: column;
      align-items: center;
+    
  }
  #formulario{
-     background-color:#c8b6fa;
-     border-radius: 30px;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     padding: 20px;
-     border:3px solid #5053fa;
-     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    background-color: #b6facd;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 3px solid #acf084;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
  }
  label{
     flex-direction: column;
      color:  #363537;
      
  }
- 
+a{
+    text-decoration: none;
+    color: #ff8119ea;
+}

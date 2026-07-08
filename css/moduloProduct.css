@@ -1,49 +1,64 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url(../images/bob.png);
+  background-position: 50%;
+}
 modulo-produccion {
   display: block;
   margin: 20px 0;
   width: 100%;
 }
-
 .menu-principal {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 9px 5%;
-    background-color: #4a9feec0;
-  
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 9px 5%;
+  background-color: #ccf988e3;
+
 }
 
 .menu-links {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .menu-links a {
-    color: rgb(110, 14, 165);
-    padding: 8px 16px;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+  color: rgb(110, 14, 165);
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .menu-links a:hover {
-    background-color: rgb(180, 128, 243);
-    color: #ffffff;
+  background-color: rgb(243, 189, 128);
+  color: #2009e8;
 }
 
+
 .contenedor-produccion {
-  background: #ffffff;
-  border: 1px solid #e9d5ff;
-  border-radius: 12px;
+  
+  max-width: 900px;
+  margin: 0 auto;
+  background-color:#c6fab6;
   padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 3px solid #e69668;
 }
 
 .contenedor-produccion h2 {
   font-size: 1.2rem;
-  color: #4c1d95;
+  color: #2d009d;
   margin-top: 0;
   margin-bottom: 15px;
 }
@@ -70,7 +85,7 @@ modulo-produccion {
 }
 
 .contenedor-produccion tr:hover td {
-  background-color: #faf5ff;
+  background-color: #f7e2a7;
 }
 
 .contenedor-produccion td:first-child {
@@ -79,7 +94,7 @@ modulo-produccion {
 
 .contenedor-produccion td small {
   font-size: 0.8rem;
-  background-color: #e9d5ff;
+  background-color: #fabe8d;
   color: #6b21a8;
   padding: 4px 8px;
   border-radius: 6px;
@@ -89,6 +104,6 @@ modulo-produccion {
 
 .contenedor-produccion td[colspan="3"] {
   text-align: center;
-  color: #a78bfa;
+  color: #f39b64;
   padding: 30px 0;
 }
