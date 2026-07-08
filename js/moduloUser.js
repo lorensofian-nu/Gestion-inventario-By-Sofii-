@@ -1,7 +1,11 @@
 const URL_BASE = "https://stock-flow-e92c1-default-rtdb.firebaseio.com";
+const inputBuscarUsuario = document.getElementById("busqueda-usuarios");
+
+let usuarios = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   await mostrarUsuarios();
+  configurarBuscador();
 });
 
 async function mostrarUsuarios() {
@@ -10,9 +14,14 @@ async function mostrarUsuarios() {
     headers: { "Content-Type": "application/json" }
   }).then((res) => res.json());
 
-  if (!lista) return renderList([]);
+  if (!lista) {
+    usuarios = [];
+    renderList([]);
+    return;
+  }
 
   const arrayUsuarios = Object.keys(lista).map(id => ({ id, ...lista[id] }));
+  usuarios = arrayUsuarios;
   renderList(arrayUsuarios);
 }
 
@@ -22,13 +31,22 @@ async function EliminarUsuario(id) {
     headers: { "Content-Type": "application/json" }
   });
 }
-async function EditarUsuario(id) {
-  await fetch(`${URL_BASE}/usuarios/${id}.json`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" }
+
+function configurarBuscador() {
+  if (!inputBuscarUsuario) return;
+
+  inputBuscarUsuario.addEventListener("input", () => {
+    const textoBuscar = inputBuscarUsuario.value.toLowerCase();
+    
+    const usuariosFiltrados = usuarios.filter((usuario) => {
+      const nombreMatchea = usuario.nombre.toLowerCase().startsWith(textoBuscar);
+      const idMatchea = usuario.identificacion.toString().startsWith(textoBuscar);
+      return nombreMatchea || idMatchea;
+    });
+
+    renderList(usuariosFiltrados);
   });
 }
-
 
 function renderList(lista) {
   const listaUsuarios = document.getElementById("listaUsuarios");
@@ -36,8 +54,9 @@ function renderList(lista) {
 
   listaUsuarios.innerHTML = "";
 
+  let output = "";
   lista.forEach((usuario) => {
-    listaUsuarios.innerHTML += `
+    output += `
         <tr>
             <td>${usuario.nombre}</td>
             <td>${usuario.cargo || 'No asignado'}</td>
@@ -49,6 +68,8 @@ function renderList(lista) {
         </tr>
     `;
   });
+  listaUsuarios.innerHTML = output;
+
   const botonesEliminar = document.getElementsByClassName("eliminar");
   for (const boton of botonesEliminar) {
     boton.addEventListener("click", async () => {
@@ -58,13 +79,13 @@ function renderList(lista) {
       await mostrarUsuarios();
     });
   }
-}
-const botonesEditar= document.getElementsByClassName("editar");
-for (const boton of botonesEditar) {
-  boton.addEventListener("click",async()=>  {
-  const id= boton.getAttribute("data-id");
-  alert("usuario editado power ranger")
-  await mostrarUsuarios();
 
-  });
+  const botonesEditar = document.getElementsByClassName("editar");
+  for (const boton of botonesEditar) {
+    boton.addEventListener("click", async () => {
+      const id = boton.getAttribute("data-id");
+      alert("Usuario editado power ranger");
+      await mostrarUsuarios();
+    });
+  }
 }

@@ -1,0 +1,94 @@
+modulo-produccion {
+  display: block;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.menu-principal {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 9px 5%;
+    background-color: #4a9feec0;
+  
+}
+
+.menu-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.menu-links a {
+    color: rgb(110, 14, 165);
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.menu-links a:hover {
+    background-color: rgb(180, 128, 243);
+    color: #ffffff;
+}
+
+.contenedor-produccion {
+  background: #ffffff;
+  border: 1px solid #e9d5ff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.contenedor-produccion h2 {
+  font-size: 1.2rem;
+  color: #4c1d95;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.contenedor-produccion table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.contenedor-produccion th {
+  color: #a78bfa;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  padding: 10px;
+  border-bottom: 2px solid #e9d5ff;
+}
+
+.contenedor-produccion td {
+  padding: 12px 10px;
+  color: #4c1d95;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #faf5ff;
+}
+
+.contenedor-produccion tr:hover td {
+  background-color: #faf5ff;
+}
+
+.contenedor-produccion td:first-child {
+  font-weight: 600;
+}
+
+.contenedor-produccion td small {
+  font-size: 0.8rem;
+  background-color: #e9d5ff;
+  color: #6b21a8;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin: 2px;
+}
+
+.contenedor-produccion td[colspan="3"] {
+  text-align: center;
+  color: #a78bfa;
+  padding: 30px 0;
+}

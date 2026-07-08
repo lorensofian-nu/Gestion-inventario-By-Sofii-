@@ -62,7 +62,7 @@ async function mostrarProductos() {
 function dibujarMateriasPrimas(tipoSeleccionado) {
   const contenedorMaterias = document.getElementById("materias-disponibles");
   if (!contenedorMaterias) return;
-  
+
   contenedorMaterias.innerHTML = "";
 
   if (tipoSeleccionado === "Produccion") {
@@ -131,15 +131,15 @@ formulario.addEventListener("submit", async (event) => {
   if (idProductoEnEdicion) {
     await EditarProducto(idProductoEnEdicion, producto);
     idProductoEnEdicion = null;
-    
+
     const botonGuardar = document.getElementById("boton-guardar") || formulario.lastElementChild;
     if (botonGuardar) {
       botonGuardar.innerText = "Guardar";
     }
-    
+
     const contenedorMaterias = document.getElementById("materias-disponibles");
     if (contenedorMaterias) contenedorMaterias.innerHTML = "";
-    
+
     formulario.reset();
     await mostrarProductos();
     return;
@@ -176,12 +176,16 @@ formulario.addEventListener("submit", async (event) => {
     productoListo = stockDisponible.every((disponible) => disponible === true);
 
     if (productoListo) {
+      let resumenMaterias = []; 
+
       for (const check of listaMateriasChequeadas) {
         const nombreMateria = check.value;
         const materiaEncontrada = productos.find(p => p.nombre === nombreMateria);
         const input = check.parentElement.lastElementChild;
         const valorRestar = Number(input.value) || 0;
         const totalRequerido = Number(producto.stock * valorRestar);
+
+        resumenMaterias.push(`${nombreMateria} (${totalRequerido} uds)`);
 
         const stockInicial = Number(materiaEncontrada.stock) || 0;
         const nuevoStock = stockInicial - totalRequerido;
@@ -195,9 +199,22 @@ formulario.addEventListener("submit", async (event) => {
           });
         }
       }
-      
+
       await request(`${URL_BASE}/product.json`, producto, "POST");
 
+      
+      const procesoProduccion = {
+        productoFabricado: producto.nombre,
+        cantidadFabricada: producto.stock,
+        materiasUsadas: resumenMaterias.join(", ") 
+      };
+      await request(`${URL_BASE}/produccion.json`, procesoProduccion, "POST");
+
+  
+      const componenteProduccion = document.getElementById("vista-produccion");
+      if (componenteProduccion) {
+        componenteProduccion.cargarHistorial();
+      }
     } else {
       alert("upss power ranger: ¡No hay suficiente stock base en las materias primas!");
     }
@@ -222,7 +239,7 @@ inputBuscar.addEventListener("input", async () => {
       "Content-Type": "application/json"
     },
   }).then((res) => res.json());
-  
+
   if (!lista) return renderList([]);
 
   const arrayList = Object.keys(lista).map(id => ({ id, ...lista[id] }));
@@ -276,7 +293,7 @@ function renderList(lista) {
         formulario.codigo.value = productoSeleccionado.codigo;
         formulario.proveedor.value = productoSeleccionado.proveedor;
         formulario.stock.value = productoSeleccionado.stock;
-        
+
         const selectTipo = document.getElementById("tipo");
         if (selectTipo) {
           selectTipo.value = productoSeleccionado.tipo;
@@ -287,8 +304,6 @@ function renderList(lista) {
         if (botonGuardar) {
           botonGuardar.innerText = "Actualizar";
         }
-        
-        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
   }
