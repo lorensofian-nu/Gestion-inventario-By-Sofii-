@@ -1,11 +1,12 @@
 const URL_BASE = "https://stock-flow-e92c1-default-rtdb.firebaseio.com";
 const BotonIngresar = document.getElementById("registrar");
+const formulario = document.getElementById("formulario");
 
 let items = [];
 
 
-BotonIngresar.addEventListener("click", (event) => {
-    e.preventDefault();
+formulario.addEventListener("submit", (event) => {
+    event.preventDefault();
 
     const nombre = document.getElementById("nombre").value.trim();
     const identificacion = document.getElementById("identificacion").value.trim();
@@ -23,7 +24,6 @@ BotonIngresar.addEventListener("click", (event) => {
         "cargo": cargo,
         "password": contraseña
     };
-
     fetch(`${URL_BASE}/usuarios.json`, {
         method: "POST",
         headers: {
@@ -32,14 +32,13 @@ BotonIngresar.addEventListener("click", (event) => {
         body: JSON.stringify(usuario)
     })
     .then(res => res.json())
-    .then(data => {
-        console.log("Usuario registrado galácticamente: ", data);
+    .then(()=> {
         alert("ya estas registrado,power ranger");
         setTimeout(() => {
             window.location.href = "../pages/login.html";
         }, 1000);
     })
-    .catch(err => {
+    .catch(() => {
         alert("Hubo un error al registrar el usuario.");
     });
 });
