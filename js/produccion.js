@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   const TipoProducto = document.getElementById("tipo");
-  const modal = document.getElementById("modal-produccion");
+  const modal = document.getElementById("boton-producir");
   const btnCerrarModal = document.getElementById("btn-cerrar-modal");
   const formModal = document.getElementById("form-modal-produccion");
   const contenedorMateriasModal = document.getElementById("materias-disponibles-modal");
 
   if (btnCerrarModal && modal) {
     btnCerrarModal.addEventListener("click", () => {
-      modal.style.display = "none";
+
       formModal.reset();
     });
   }
 
-  window.vincularBotonesFila = function() {
+  window.vincularBotonesFila = function () {
     const botonesProducir = document.getElementsByClassName("btn-producir-fila");
 
     for (const boton of botonesProducir) {
       boton.addEventListener("click", () => {
         const nombreProducto = boton.getAttribute("data-producto");
-        
+
         document.getElementById("prod-nombre").value = nombreProducto;
-        modal.style.display = "flex";
+
 
         dibujarMateriasPrimasModal();
       });
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const materiasPrimas = listaProductosGlobal.filter(p => p.tipo === "materia-prima");
 
     let cuadros = "<label>Materias primas requeridas por unidad:</label><br>";
-    
+
     materiasPrimas.forEach(materia => {
       cuadros += `
         <div>
@@ -52,17 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
     formModal.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const cantidadAProducir = parseInt(document.getElementById("prod-stock").value) || 0;
+      const cantidadAProducir = (document.getElementById("prod-stock").value) || 0;
       const inputsCantidadModal = document.getElementsByClassName("cantidad-modal-receta");
-      const listaProductosGlobal = window.productos || [];
-      
+
+
       let actualizaciones = [];
       let resumenMaterias = [];
       let stockSuficiente = true;
 
       for (const input of inputsCantidadModal) {
         const cantidadPorUnidad = parseInt(input.value) || 0;
-        
+
         if (cantidadPorUnidad > 0) {
           const nombreMateria = input.getAttribute("data-nombre");
           const totalRequerido = cantidadAProducir * cantidadPorUnidad;
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         codigoProceso: siguienteCodigo,
         productoFabricado: nombreProdFabricado,
         cantidadFabricada: cantidadAProducir,
-        materiasUsadas: resumenMaterias.join(", ")
+        materiasUsadas: resumenMaterias
       };
 
       await fetch(`${URL_BASE}/produccion.json`, {
@@ -141,11 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(procesoProduccion)
       });
 
-      alert(`Resumen de Producción:\n\nProceso Nº: ${procesoProduccion.codigoProceso}\nProducto: ${procesoProduccion.productoFabricado}\nCantidad: +${procesoProduccion.cantidadFabricada} uds\nMaterias usadas: ${procesoProduccion.materiasUsadas}`);
+      alert(`Resumen de Producción: ${procesoProduccion.codigoProceso}\nProducto: ${procesoProduccion.productoFabricado}\nCantidad: +${procesoProduccion.cantidadFabricada} uds\nMaterias usadas: ${procesoProduccion.materiasUsadas}`);
 
-      modal.style.display = "none";
+
       formModal.reset();
-      
+
       const componenteProduccion = document.querySelector("modulo-produccion");
       if (componenteProduccion) {
         await componenteProduccion.cargarHistorial();
@@ -160,7 +160,10 @@ document.addEventListener("DOMContentLoaded", () => {
     TipoProducto.addEventListener("change", () => {
       const contenedorMaterias = document.getElementById("materias-disponibles");
       contenedorMaterias.innerHTML = "";
-      const listaProductosGlobal = window.productos || [];
+      const listaproduc = window.productos || [];
+      const listaProductosGlobal = Object.values(listaproduc).sort((a, b) => {
+        return a.stock > b.stock ? 1 : -1;
+      })
 
       if (TipoProducto.value === "Produccion") {
         const materiasPrimas = listaProductosGlobal.filter(producto => producto.tipo === "materia-prima");
@@ -182,25 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         contenedorMaterias.innerHTML = cuadros;
 
-        const inputsCantidad = document.getElementsByClassName("cantidad-receta");
 
-        for (const input of inputsCantidad) {
-          input.addEventListener("input", () => {
-            const nombreMateria = input.getAttribute("data-nombre");
-            const stockInicial = parseInt(input.getAttribute("data-stock-inicial")) || 0;
-            const valorRestar = parseInt(input.value) || 0;
-
-            listaProductosGlobal.forEach(producto => {
-              if (producto.nombre === nombreMateria && producto.tipo === "materia-prima") {
-                producto.stock = stockInicial - valorRestar;
-              }
-            });
-
-            if (typeof renderList === "function") {
-              renderList(listaProductosGlobal);
-            }
-          });
-        }
       }
     });
   }

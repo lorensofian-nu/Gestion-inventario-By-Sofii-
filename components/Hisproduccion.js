@@ -2,27 +2,13 @@ class ModuloProduccion extends HTMLElement {
   async connectedCallback() {
     this.innerHTML = `
       <div class="contenedor-produccion">
-        <h2>Historial de Procesos de Producción</h2>
+        <h2>Reporte de los 5 productos más fabricados</h2>
 
-        <div id="modal-produccion" style="display: none;">
+        <div id="boton-producir" >
           <div class="modal-contenido">
-            <span id="btn-cerrar-modal">&times;</span>
-            <h3>Registrar Proceso de Producción</h3>
             
-            <form id="form-modal-produccion">
-              <label>Nombre del Producto a Fabricar:</label>
-              <input type="text" id="prod-nombre" readonly required>
-
-              <label>Cantidad a Producir (Stock):</label>
-              <input type="number" id="prod-stock" min="1" required>
-
-              <div id="materias-disponibles-modal"></div>
-
-              <button type="submit">Confirmar y Descontar</button>
-            </form>
           </div>
         </div>
-
         <table>
           <thead>
             <tr>
@@ -34,12 +20,11 @@ class ModuloProduccion extends HTMLElement {
             </tr>
           </thead>
           <tbody id="tabla-cuerpo-produccion">
-            <tr>
-              <td colspan="5">Cargando procesos...</td>
-            </tr>
           </tbody>
         </table>
       </div>
+      <table>
+
     `;
     await this.cargarHistorial();
   }
@@ -53,31 +38,31 @@ class ModuloProduccion extends HTMLElement {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       }).then((res) => res.json());
-
-      if (!respuesta) {
-        tablaCuerpo.innerHTML = `<tr><td colspan="5">No se han generado procesos de producción aún.</td></tr>`;
-        return;
-      }
-
       const arrayProcesos = Object.keys(respuesta).map(id => respuesta[id]);
-      
+      const procesosOrdenados = arrayProcesos.sort((a, b) => {
+        return a.cantidadFabricada < b.cantidadFabricada ? 1 : -1
+      });
+
       let output = "";
-      arrayProcesos.forEach((proceso) => {
+      const max = 5;
+      for (let index = 0; index < max; index++) {
         output += `
           <tr>
-            <td># ${proceso.codigoProceso || 1}</td>
-            <td><strong>${proceso.productoFabricado}</strong></td>
-            <td>${proceso.cantidadFabricada} uds</td>
-            <td><small>${proceso.materiasUsadas}</small></td>
+            <td># ${procesosOrdenados[index].codigoProceso || 1}</td>
+            <td><strong>${procesosOrdenados[index].productoFabricado}</strong></td>
+            <td>${procesosOrdenados[index].cantidadFabricada} uds</td>
+            <td><small>${procesosOrdenados[index].materiasUsadas}</small></td>
             <td>
-              <button class="btn-producir-fila" data-producto="${proceso.productoFabricado}">
+              <button class="btn-producir-fila" data-producto="${procesosOrdenados[index].productoFabricado}">
                 Producir
               </button>
             </td>
           </tr>
+
         `;
-      });
-      
+
+      }
+
       tablaCuerpo.innerHTML = output;
 
       if (typeof window.vincularBotonesFila === "function") {
